@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: backendjungle-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: jungle
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: jungle_db
+    ports:
+      - '127.0.0.1:${DATABASE_PORT:-5433}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U jungle -d jungle_db']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: backendjungle-localstack
+    restart: unless-stopped
+    ports:
+      - '4566:4566'
+    environment:
+      SERVICES: sqs
+      AWS_DEFAULT_REGION: us-east-1
+      LOCALSTACK_AUTH_TOKEN: ${LOCALSTACK_AUTH_TOKEN:-}
+    volumes:
+      - localstack_data:/var/lib/localstack
+
+volumes:
+  postgres_data:
+  localstack_data:
