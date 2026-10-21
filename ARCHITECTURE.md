@@ -20,3 +20,11 @@ O projeto utiliza Decimal.js para representar e manipular valores monetários co
 **Confiabilidade:** garante maior segurança na manipulação de saldos e transações.
 
 **Consistência:** permite padronizar valores monetários com duas casas decimais.
+
+**Autenticação e autorização**
+
+**Decisão:** A autenticação não será implementada nesta versão do desafio.
+
+**Justificativa:** Como a autenticação não integra os critérios de pontuação, priorizei a consistência financeira, a idempotência, o controle de concorrência e a confiabilidade do processamento assíncrono.
+
+**Arquitetura proposta:** Em um ambiente de produção, a autenticação seria delegada a um Identity Provider externo, como Keycloak, utilizando OAuth 2.0 e OpenID Connect.
