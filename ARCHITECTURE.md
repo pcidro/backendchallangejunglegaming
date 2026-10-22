@@ -28,3 +28,14 @@ O projeto utiliza Decimal.js para representar e manipular valores monetários co
 **Justificativa:** Como a autenticação não integra os critérios de pontuação, priorizei a consistência financeira, a idempotência, o controle de concorrência e a confiabilidade do processamento assíncrono.
 
 **Arquitetura proposta:** Em um ambiente de produção, a autenticação seria delegada a um Identity Provider externo, como Keycloak, utilizando OAuth 2.0 e OpenID Connect.
+
+## Arquitetura — Separação entre Domínio e Persistência
+
+O projeto utiliza **EntitySchema do MikroORM** para manter as configurações de persistência separadas das entidades de domínio.
+
+**Motivos da escolha:**
+
+- **Separação de responsabilidades:** entidades concentram regras de negócio, enquanto schemas definem o mapeamento com o PostgreSQL.
+- **Independência do domínio:** evita acoplamento direto das entidades ao MikroORM.
+- **Testabilidade:** permite testar regras de negócio sem depender do banco de dados.
+- **Manutenibilidade:** facilita alterações na camada de persistência sem modificar diretamente as entidades.
